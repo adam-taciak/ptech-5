@@ -264,11 +264,11 @@ def get_categories():
 
 
 ## Referencje
-- [https://docs.python.org/3/tutorial/venv.html](Virtual Environments and Packages)
-- [https://flask.palletsprojects.com/en/stable/quickstart/](Flask Quickstart)
-- [https://dev.mysql.com/doc/connector-python/en/connector-python-tutorial-cursorbuffered.html](MySQL Connector Example)
-- [https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent](GitHub - Generate new SSH key)
-- [https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account](GitHub - Adding a new SSH key to your account)
-- [https://devhints.io/docker-compose](Docker Compose cheatsheet)
-- [https://github.com/docker/awesome-compose?tab=readme-ov-file](Awesome Docker Compose samples)
-- [https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository](Docker installation on Ubuntu)
+- [Virtual Environments and Packages](https://docs.python.org/3/tutorial/venv.html)
+- [Flask Quickstart](https://flask.palletsprojects.com/en/stable/quickstart/)
+- [MySQL Connector Example](https://dev.mysql.com/doc/connector-python/en/connector-python-tutorial-cursorbuffered.html)
+- [GitHub - Generate new SSH key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
+- [GitHub - Adding a new SSH key to your account](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account)
+- [Docker Compose cheatsheet](https://devhints.io/docker-compose)
+- [Awesome Docker Compose samples](https://github.com/docker/awesome-compose?tab=readme-ov-file)
+- [Docker installation on Ubuntu](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository)
