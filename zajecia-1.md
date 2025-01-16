@@ -17,42 +17,6 @@ o bibliotekę **Flask**, więc wiąże się z tym język Python.
 Dodatkowo dane będą przechowywane w bazie danych MySQL. Nie ma potrzeby instalowania
 bazy w systemie, należy skorzystać z dockera.
 
-### docker-compose
-
-Aby ułatwić pracę na etapie dewelopmentu, należy wykorzystać narzędzie **docker compose**,
-które błyskawicznie podniesie wymaganą infrastrukturę. Poniżej zawartość pliku `docker-compose.yaml`
-który należy stworzyć.
-
-```yaml
-services:
-  db:
-    image: mysql:latest
-    container_name: db
-    environment:
-      MYSQL_ROOT_PASSWORD: my_secret_password
-      MYSQL_DATABASE: app
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
-    ports:
-      - "6033:3306"
-    volumes:
-      - dbdata:/var/lib/mysql
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    container_name: pma
-    links:
-      - db
-    environment:
-      PMA_HOST: db
-      PMA_PORT: 3306
-      PMA_ARBITRARY: 1
-    restart: always
-    ports:
-      - 8081:80
-volumes:
-  dbdata:
-```
-
 ### API
 Backend powinien wystawić REST API z następującymi endpointami:
 
@@ -122,12 +86,49 @@ INSERT INTO categories (name) VALUES
     ('Inne');
 ```
 
-Biblioteki używane przez backend.
+
+
+### docker-compose
+
+Aby ułatwić pracę na etapie dewelopmentu, należy wykorzystać narzędzie **docker compose**,
+które błyskawicznie podniesie wymaganą infrastrukturę. Poniżej zawartość pliku `docker-compose.yaml`
+który należy stworzyć.
+
+```yaml
+services:
+  db:
+    image: mysql:latest
+    container_name: db
+    environment:
+      MYSQL_ROOT_PASSWORD: my_secret_password
+      MYSQL_DATABASE: app
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - "6033:3306"
+    volumes:
+      - dbdata:/var/lib/mysql
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: pma
+    links:
+      - db
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+    restart: always
+    ports:
+      - 8081:80
+volumes:
+  dbdata:
 ```
-flask
-flask-cors
-mysql-connector-python
-```
+
+
+
+
+
+
 
 ## Przygotowanie środowiska
 
@@ -141,6 +142,15 @@ mysql-connector-python
 - Stworzenie pliku `app.py` i rozpoczęcie implementacji
 
 ## Aplikacja
+
+### Zależności
+
+Biblioteki używane przez backend.
+```
+flask
+flask-cors
+mysql-connector-python
+```
 
 ### Część wspólna
 
