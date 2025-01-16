@@ -76,7 +76,22 @@ CREATE TABLE todos (
 
 Plik z całą bazą dostępny jest tu [database.sql](https://github.com/adam-taciak/ptech-5/blob/master/zajecia-1/database.sql)
 
+## Przygotowanie środowiska
 
+- Stworzenie konta na GitHubie (można pominąć jeżeli posiadasz już konto)
+- Stworzenie repozytorium `backend` na GitHubie
+- Stworzenie i dodanie klucza SSH do GitHuba
+- Instalacja/Przygotowanie systemu operacyjnego Linux
+- Instalacja Dockera
+- Instalacja Pythona
+- Stworzenie katalogu o nazwie `backend`
+- Stworzenie środowiska wirtualnego `.venv` w katalogu `.venv`
+- Instalacja zależności `pip install -r requirements.txt`
+
+## Aplikacja
+
+- Stworzenie pliku `docker-compose.yaml` i uruchomienie infrastruktury deweloperskiej (MySQL + phpmyadmin)
+- Stworzenie pliku `app.py` i rozpoczęcie implementacji
 
 ### docker-compose
 
@@ -114,33 +129,28 @@ volumes:
   dbdata:
 ```
 
+Po przygotowaniu pliku należy wykonać polecenie `docker compose up -d` co spowoduje pobranie obrazów
+oraz uruchomienie kontenerów. Pod adresem `http://localhost:8081` dostępny będzie phpMyAdmin.
 
+### Przygotowanie bazy danych
 
+Przed rozpoczęciem dewelopmentu, należy przygotować bazę danych. Konieczne jest stworzenie twóch tabel
+`todos` oraz `categories`. Tabele najlepiej jest wypełnić danymi aby usprawnić dewelopment.
 
+Należy uruchomić w przeglądarce phpMyAdmin (**login:** `user`, **hasło**: `password`), przejść do bazy `app`,
+uruchomić edytor zapytań, skopiować zawartość pliku [database.sql](https://github.com/adam-taciak/ptech-5/blob/master/zajecia-1/database.sql)
+i wykonać zapytania. Powstaną tabele które będą wypełnione danymi.
 
+### Zależności (requirements.txt)
 
+Backend korzysta z 3 modułów które należy doinstalować:
 
-## Przygotowanie środowiska
+- Flask
+- Flask-CORS
+- Mysql Connector/Python
 
-- Stworzenie repozytorium `backend` na GitHubie
-- Stworzenie i dodanie klucza SSH do GitHuba
-- Instalacja Dockera
-- Instalacja Pythona
-- Stworzenie katalogu o nazwie `backend`
-- Stworzenie środowiska wirtualnego `.venv` w katalogu `.venv`
-- Instalacja zależności `pip install -r requirements.txt`
-- Stworzenie pliku `app.py` i rozpoczęcie implementacji
-
-## Aplikacja
-
-### Zależności
-
-Biblioteki używane przez backend.
-```
-flask
-flask-cors
-mysql-connector-python
-```
+Aby zainstalować zależności, należy stworzyć w projekcie nowy plik o nazwie `requirements.txt` i skopiować
+[requirements.txt](https://github.com/adam-taciak/ptech-5/blob/master/zajecia-1/requirements.txt)
 
 ### Część wspólna
 
