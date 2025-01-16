@@ -185,6 +185,50 @@ if __name__ == '__main__':
 
 Po stworzeniu pliku `app.py` i wstawieniu powyższego kodu, należy uruchomić aplikację poleceniem `python app.py`.
 
+#### Moduł bazy danych
+
+Aby rozdzielić odpowiedzialności w kodzie aplikacji, przygotujemy pomocniczny moduł o nazwie `db.py`.
+Wewnątrz znajdą się 2 funkcje:
+
+- tworząca połączenie do bazy `connect()`
+- oraz zamykająca połączenie `disconnect(db)`
+
+Zawartość modułu.
+
+```python
+import mysql.connector
+import os
+
+
+DB_HOST = os.getenv('DB_HOST', 'localhost')
+DB_USER = os.getenv('DB_USER', 'user')
+DB_PASS = os.getenv('DB_PASS', 'password')
+DB_NAME = os.getenv('DB_NAME', 'app')
+DB_PORT = os.getenv('DB_PORT', 3306)
+
+
+def connect():
+    db = mysql.connector.connect(
+        host=DB_HOST,
+        user=DB_USER,
+        passwd=DB_PASS,
+        database=DB_NAME,
+        port=DB_PORT
+    )
+
+    return db
+
+
+def disconnect(db):
+    db.close()
+```
+
+Po dodaniu tego modułu (a dokładniej w momencie jego użycia, importu z innego modułu)
+konieczne jest ustawienie zmiennej środowiskowej `DB_PORT` na wartość `6033` przed uruchomieniem
+interpreter/programu.
+
+`DB_PORT=6033 python app.py`
+
 #### Endpointy zadań `/todos`, `/todos/id`
 
 ##### GET, POST`/todos`
