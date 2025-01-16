@@ -152,7 +152,14 @@ Backend korzysta z 3 modułów które należy doinstalować:
 Aby zainstalować zależności, należy stworzyć w projekcie nowy plik o nazwie `requirements.txt` i skopiować
 [requirements.txt](https://github.com/adam-taciak/ptech-5/blob/master/zajecia-1/requirements.txt)
 
-### Część wspólna
+Ostatnim krokiem jest wykonanie polecenia `pip install -r requirements.txt`.
+
+> [!UWAGA]
+> Należy wcześniej aktywować środowisko wirtualne `venv`.
+
+### Kod aplikacji
+
+#### Część wspólna
 
 Import modułów, stworzenie obiektu aplikacji (`app`), rejestracja middleware (`CORS`).
 
@@ -173,9 +180,9 @@ if __name__ == '__main__':
     app.run(host='0.0.0.0', port=3000, debug=True)
 ```
 
-### Endpointy zadań `/todos`, `/todos/id`
+#### Endpointy zadań `/todos`, `/todos/id`
 
-#### GET, POST`/todos`
+##### GET, POST`/todos`
 
 ```python
 @app.route('/todos', methods=['GET', 'POST'])
@@ -216,7 +223,7 @@ def get_todos():
         return {}
 ```
 
-#### GET, PUT, DELETE `/todos/{id}`
+##### GET, PUT, DELETE `/todos/{id}`
 
 ```python
 @app.route('/todos/<int:todo_id>', methods=['GET', 'DELETE', 'PUT'])
@@ -253,9 +260,9 @@ def handle_todo(todo_id):
         return Response('', status=200)
 ```
 
-### Endpointy kategorii `/categories`
+#### Endpointy kategorii `/categories`
 
-#### GET `/categories`
+##### GET `/categories`
 
 ```python
 @app.route('/categories', methods=['GET'])
