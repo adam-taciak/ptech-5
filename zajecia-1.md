@@ -154,7 +154,7 @@ Aby zainstalować zależności, należy stworzyć w projekcie nowy plik o nazwie
 
 Ostatnim krokiem jest wykonanie polecenia `pip install -r requirements.txt`.
 
-> [!UWAGA]
+> [!WARNING]
 > Należy wcześniej aktywować środowisko wirtualne `venv`.
 
 ### Kod aplikacji
