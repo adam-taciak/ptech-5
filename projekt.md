@@ -18,6 +18,6 @@ Ostanim krokiem naszego projektu, będzie wprowadzenie ciągłej integracji (con
 
 ## Architektura
 
-```mermaid
+![Architektura](https://raw.githubusercontent.com/adam-taciak/ptech-5/refs/heads/master/architektura.svg)
 
-```
+
