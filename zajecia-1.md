@@ -72,19 +72,9 @@ CREATE TABLE todos (
     category_id INT,
     FOREIGN KEY (category_id) REFERENCES categories(id)
 );
-
-INSERT INTO categories (name) VALUES
-    ('Praca'),
-    ('Dom'),
-    ('Zakupy'),
-    ('Zdrowie'),
-    ('Edukacja'),
-    ('Rozrywka'),
-    ('Podróże'),
-    ('Finanse'),
-    ('Rodzina'),
-    ('Inne');
 ```
+
+Plik z całą bazą dostępny jest tu [database.sql](https://github.com/adam-taciak/ptech-5/blob/master/zajecia-1/database.sql)
 
 
 
