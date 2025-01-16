@@ -159,6 +159,9 @@ Ostatnim krokiem jest wykonanie polecenia `pip install -r requirements.txt`.
 
 ### Kod aplikacji
 
+> [!TIP]
+> Przed rozpoczęciem implementacji warto zapoznać się z krótkim wstępem do Flaska [Flask Quickstart](https://flask.palletsprojects.com/en/stable/quickstart/).
+
 #### Część wspólna
 
 Import modułów, stworzenie obiektu aplikacji (`app`), rejestracja middleware (`CORS`).
@@ -179,6 +182,8 @@ Uruchomienie aplikacji.
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=3000, debug=True)
 ```
+
+Po stworzeniu pliku `app.py` i wstawieniu powyższego kodu, należy uruchomić aplikację poleceniem `python app.py`.
 
 #### Endpointy zadań `/todos`, `/todos/id`
 
