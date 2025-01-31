@@ -74,6 +74,98 @@ Struktura katalogów i plików projektu będzie wyglądać następująco.
 └── vite.config.js
 ```
 
+#### Widok aplikacji
+
+Aplikacja będzie wyglądać jak na screenach poniżej.
+
+Okno główne aplikacji, lista zadań.
+
+![Okno główne aplikacji](./aplikacja-lista.jpg)
+
+Okno dialogowe do tworzenia nowyh zadań.
+
+![Tworzenie nowego zadania](./aplikacja-tworzenie.jpg)
+
+## Kod aplikacji
+
+### Komponent `App`
+
+```jsx
+const App = () => {
+    useEffect(() => {
+        const url = `${API_BASE}/categories`
+        axios.get(url).then(response => setCategories(response.data))
+    }, [])
+
+    useEffect(() => {
+        getTodos()
+    }, [])
+
+    const [categories, setCategories] = useState([])
+    const [todos, setTodos] = useState([])
+    const [open, setOpen] = useState(false)
+
+
+    
+    return (
+        <div style={{width: '400px', margin: 'auto'}}>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <Button onClick={() => setOpen(true)}>Dodaj zadanie</Button>
+                <CreateTodo categories={categories} open={open} onSave={handleSave}/>
+                <TodoList todos={todos} onDelete={handleDelete} onUpdate={handleUpdate} onCompletion={handleCompletion}/>
+            </LocalizationProvider>
+        </div>
+    )
+}
+
+export default App
+```
+
+Dodatkowo komponent implementuje kilka funkcji:
+
+Funkcja `getTodos` będzie pobierać dane z backendu.
+```jsx
+const getTodos = () => {
+    const url = `${API_BASE}/todos`
+    axios.get(url).then(response => setTodos(response.data))
+}
+```
+
+```jsx
+    const handleSave = (title, description, category, dueDate, completed) => {
+        const url = `${API_BASE}/todos`
+        const data = {
+            title,
+            description,
+            category,
+            due_date: dueDate,
+            completed: completed == 'true' ? true : false,
+        }
+
+        axios.post(url, data).then(response => {
+            setOpen(false)
+            getTodos()
+        })
+    }
+```
+
+```jsx
+
+    const handleDelete = (id) => {
+        const url = `${API_BASE}/todos/${id}`
+        axios.delete(url).then(response => {
+            getTodos()
+        })
+    }
+```
+
+```jsx
+    const handleUpdate = (todo) => {
+    }
+
+    const handleCompletion = (id) => {
+    }
+```
 
 
 ## Referencje
