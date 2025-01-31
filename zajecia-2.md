@@ -178,6 +178,109 @@ const handleCompletion = (id) => {
 }
 ```
 
+### Komponent `Todo`
+
+```jsx
+
+```
+
+### Komponent `CreateTodo`
+
+Struktura komponentu oraz JSX wyglądają następująco.
+
+```jsx
+const CreateTodo = ({categories, open, onSave}) => {
+    return (
+        <Dialog open={open}>
+            <Typography variant="h2">
+                Nowe zadanie
+            </Typography>
+            <FormControl>
+                <Stack spacing={2}>
+                    <TextField
+                        label="Nazwa zadania"
+                        value={title}
+                        onChange={(event) => setTitle(event.target.value)}
+                    />
+                    <TextField
+                        label="Opis"
+                        multiline
+                        rows={4}
+                        value={description}
+                        onChange={(event) => setDescription(event.target.value)}
+                    />
+                    <Select
+                        label="Kategoria"
+                        value={category}
+                        onChange={(event) => setCategory(event.target.value)}
+                    >
+                        {categories.map(category =>
+                            <MenuItem key={`category-${category.id}`} value={category.id}>{category.name}</MenuItem>)
+                        }
+                    </Select>
+                    <DatePicker
+                        label="Basic date time picker"
+                        value={dueDate}
+                        onChange={(value) => setDueDate(value)}
+                    />
+                    <Stack spacing={2} direction="row">
+                        <Checkbox
+                            label="Ukończone"
+                            value={completed}
+                            onChange={(event) => setCompleted(event.target.value)}
+                        />
+                        <Typography>Ukończone</Typography>
+                    </Stack>
+                    <Button onClick={() => handleSave()}>Dodaj</Button>
+                </Stack>
+            </FormControl>
+        </Dialog>
+    )
+}
+```
+
+Komponent definiuje następujące stany.
+
+```jsx
+const [title, setTitle] = useState('')
+const [description, setDescription] = useState('')
+const [category, setCategory] = useState('')
+const [dueDate, setDueDate] = useState(null)
+const [completed, setCompleted] = useState(false)
+```
+
+Oraz hook `useEffect` aby reagować na otwieranie okna dialogowego.
+
+```jsx
+useEffect(() => {
+    setTitle('')
+    setDescription('')
+    setCategory('')
+    setDueDate(null)
+    setCompleted(false)
+}, [open])
+```
+
+Funkcja `handleSave` przekazuje dane do komponentu nadrzędnego.
+
+```jsx
+const handleSave = () => {
+    onSave(title, description, category, dueDate, completed)
+}
+```
+
+
+### Komponent `EditTodo`
+
+Pusty komponent `EditTodo`. Należy napisać go na podstawie komponentu `CreateTodo`.
+
+```jsx
+const EditTodo = ({todo, open, onSave}) => {
+}
+
+export default EditTodo
+```
+
 
 ## Referencje
 
