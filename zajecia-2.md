@@ -180,6 +180,50 @@ const handleCompletion = (id) => {
 
 ### Komponent `Todo`
 
+Struktura komponentu.
+
+```jsx
+const Todo = ({id, title, description, onDelete, onEdit, onCompletion}) => {
+    return (
+        <Paper style={{ padding: '10px' }}>
+            <Stack spacing={2}>
+            <Typography variant="h5">{title}</Typography>
+            <Typography variant="body1">{description}</Typography>
+            <Stack direction="row" spacing={1}>
+                <IconButton onClick={() => handleCompletion(id)}>
+                    <DoneIcon />
+                </IconButton>
+                <IconButton onClick={() => handleEdit(id)}>
+                    <EditIcon />
+                </IconButton>
+                <IconButton onClick={() => handleDelete(id)}>
+                    <DeleteIcon />
+                </IconButton>
+            </Stack>
+            </Stack>
+        </Paper>
+    )
+}
+```
+
+Oraz zestaw funkcji które będą przekazywać dane do komponentu nadrzędnego.
+
+```jsx
+const handleDelete = (id) => {
+    onDelete(id)
+}
+
+const handleEdit = (id) => {
+    onEdit(id)
+}
+
+const handleCompletion = (id) => {
+    onCompletion(id)
+}
+```
+
+### Komponent `TodoList`
+
 ```jsx
 
 ```
