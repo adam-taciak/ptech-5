@@ -363,6 +363,14 @@ const EditTodo = ({todo, open, onSave}) => {
 export default EditTodo
 ```
 
+### Plik konfiguracyjny
+
+Plik `config.js` przechowuje adres backendu.
+
+```js
+export const API_BASE = 'http://localhost:3000'
+```
+
 
 ## Referencje
 
