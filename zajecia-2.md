@@ -67,10 +67,10 @@ Struktura katalogów i plików projektu będzie wyglądać następująco.
 │   ├── components
 │   │   ├── CreateTodo.jsx
 │   │   ├── EditTodo.jsx
+│   │   ├── Todo.jsx
 │   │   └── TodoList.jsx
 │   ├── config.js
-│   ├── main.jsx
-│   └── Todos.jsx
+│   └── main.jsx
 └── vite.config.js
 ```
 
