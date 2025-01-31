@@ -90,23 +90,10 @@ Okno dialogowe do tworzenia nowyh zadań.
 
 ### Komponent `App`
 
+Główny komponent `App` ma następującą strukturę.
+
 ```jsx
 const App = () => {
-    useEffect(() => {
-        const url = `${API_BASE}/categories`
-        axios.get(url).then(response => setCategories(response.data))
-    }, [])
-
-    useEffect(() => {
-        getTodos()
-    }, [])
-
-    const [categories, setCategories] = useState([])
-    const [todos, setTodos] = useState([])
-    const [open, setOpen] = useState(false)
-
-
-    
     return (
         <div style={{width: '400px', margin: 'auto'}}>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -121,7 +108,28 @@ const App = () => {
 export default App
 ```
 
-Dodatkowo komponent implementuje kilka funkcji:
+Komponent definiuje dwa hooki `useEffect` które służą do pobierania danych.
+
+```jsx
+useEffect(() => {
+    const url = `${API_BASE}/categories`
+    axios.get(url).then(response => setCategories(response.data))
+}, [])
+
+useEffect(() => {
+    getTodos()
+}, 
+```
+
+Dodatkowo komponent przechowuje 3 stany:
+
+```jsx
+const [categories, setCategories] = useState([])
+const [todos, setTodos] = useState([])
+const [open, setOpen] = useState(false)
+```
+
+Oprócz hooków, komponent posiada 4 funkcje.
 
 Funkcja `getTodos` będzie pobierać dane z backendu.
 ```jsx
@@ -131,40 +139,43 @@ const getTodos = () => {
 }
 ```
 
+Funkcja `handleSave` będzie odpowiedzialna za zapis danych (tworzenie nowego zadania).
 ```jsx
-    const handleSave = (title, description, category, dueDate, completed) => {
-        const url = `${API_BASE}/todos`
-        const data = {
-            title,
-            description,
-            category,
-            due_date: dueDate,
-            completed: completed == 'true' ? true : false,
-        }
-
-        axios.post(url, data).then(response => {
-            setOpen(false)
-            getTodos()
-        })
+const handleSave = (title, description, category, dueDate, completed) => {
+    const url = `${API_BASE}/todos`
+    const data = {
+        title,
+        description,
+        category,
+        due_date: dueDate,
+        completed: completed == 'true' ? true : false,
     }
+
+    axios.post(url, data).then(response => {
+        setOpen(false)
+        getTodos()
+    })
+}
 ```
 
-```jsx
+Funkcja `hadleDelete` będzie odpowiedzialna za usuwanie zadań.
 
-    const handleDelete = (id) => {
-        const url = `${API_BASE}/todos/${id}`
-        axios.delete(url).then(response => {
-            getTodos()
-        })
-    }
+```jsx
+const handleDelete = (id) => {
+    const url = `${API_BASE}/todos/${id}`
+    axios.delete(url).then(response => {
+        getTodos()
+    })
+}
 ```
 
+Oraz dwie funkcje `handleUpdate` i `handleCompletion` do aktualizaji zadań.
 ```jsx
-    const handleUpdate = (todo) => {
-    }
+const handleUpdate = (todo) => {
+}
 
-    const handleCompletion = (id) => {
-    }
+const handleCompletion = (id) => {
+}
 ```
 
 
