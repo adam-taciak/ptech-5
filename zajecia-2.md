@@ -46,8 +46,34 @@ Aplikacja będzie korzystać z następujących bibliotek:
 Przed przystąpieniem do dewelopmentu, należy zainstalować wymagane biblioteki.
 
 ```
-npm install @mui/material @emotion/react @emotion/styled @mui/icons-material @fontsource/roboto @mui/x-date-pickers axios
+npm install @mui/material @emotion/react @emotion/styled @mui/icons-material @fontsource/roboto @mui/x-date-pickers dayjs axios
 ```
+
+### Rozpoczęcie pracy nad aplikacją
+
+#### Struktura katalogów
+
+Struktura katalogów i plików projektu będzie wyglądać następująco.
+```
+.
+├── eslint.config.js
+├── index.html
+├── package.json
+├── package-lock.json
+├── public
+├── README.md
+├── src
+│   ├── App.jsx
+│   ├── components
+│   │   ├── CreateTodo.jsx
+│   │   ├── EditTodo.jsx
+│   │   └── TodoList.jsx
+│   ├── config.js
+│   ├── main.jsx
+│   └── Todos.jsx
+└── vite.config.js
+```
+
 
 
 ## Referencje
