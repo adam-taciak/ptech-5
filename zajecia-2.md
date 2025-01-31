@@ -224,8 +224,46 @@ const handleCompletion = (id) => {
 
 ### Komponent `TodoList`
 
-```jsx
+Struktura komponentu.
 
+```jsx
+const TodoList = ({todos, onDelete, onUpdate, onCompletion}) => {
+    return (
+        <>
+            <Stack spacing={2}>
+            {todos.map(todo =>
+                <Todo
+                    key={todo.id}
+                    id={todo.id}
+                    title={todo.title}
+                    description={todo.description}
+                    completed={todo.completed}
+                    category_id={todo.category_id}
+                    onDelete={handleDelete}
+                    onEdit={handleEdit}
+                    onCompletion={handleCompletion}
+                />
+            )}
+            </Stack>
+        </>
+    )
+}
+```
+
+Oraz zestaw funkcji które będą przekazywać dane do komponentu nadrzędnego.
+
+```jsx
+const handleDelete = (id) => {
+    onDelete(id)
+}
+
+const handleEdit = (todo) => {
+    onUpdate(todo)
+}
+
+const handleCompletion = (id) => {
+    onCompletion(id);
+}
 ```
 
 ### Komponent `CreateTodo`
