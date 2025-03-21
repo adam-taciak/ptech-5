@@ -116,4 +116,60 @@ Po tej zmianie, każdorazowe tworzenie kontenera bazy, wypełni automatycznie ba
 
 ## Orkiestracja
 
-Na gihubie 
+Zanim przystąpimy do orkiestracji i pisania pliku `docker-compose.yaml`, musimy umieścić obraz w docker registry w GitHubie.
+
+### Tworzenie personal access token
+
+Pierwszym krokiem jest wygenerowanie nowego tokena który umożliwi dostęp do registry. W GitHubie kliknij w awatar swojego profilu, a następnie **Settings** > po lewej, na samym dole **Developer settings** > **Personal access tokens** > **Tokens (classic)**. Kliknij w przycisk **Generate new token**.
+
+![Tworzenie nowego tokenu](./github-token.jpg)
+
+W polu **Note** podaj nazwę nowego tokena na przykład *Docker access*, następnie w sekcji **Scope** zaznacz pozycję **write:packages**. Następnie kliknij w przycisk **Generate token**. Skopiuj nowy token, gdyż nie będzie możliwości jego podejrzenia w przyszłości. Jeżli zgubisz token, musisz wygenerować nowy.
+
+### Logowanie do docker registry
+
+Do logowania potrzebny będzie token. Wywołaj poniższe polecenie, jako hasło użyj wygenerowanego tokena.
+
+```
+docker login ghcr.io -u <nazwa-użytkownika>
+```
+
+Jeżeli wszystko zadziała prawidłowo, zobaczysz poniższy rezultat.
+
+```
+^^>>> docker login ghcr.io -u adam-taciak
+i Info → A Personal Access Token (PAT) can be used instead.
+         To create a PAT, visit https://app.docker.com/settings
+
+
+Password:
+
+
+WARNING! Your credentials are stored unencrypted in '/home/taciaka/.docker/config.json'.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/go/credential-store/
+
+Login Succeeded
+```
+
+### Tagowanie obrazów i wypychanie do registry
+
+Kolejnym krokiem jest otagowanie zbudowanych obrazów  i wypchnięcie ich do registry. Zacznijmy od backendu:
+
+> [!WARNING]  
+> Pamiętej aby podać poprawny adres do swojego konta!
+
+
+```
+docker tag ptech-backend ghcr.io/adam-taciak/ptech-backend:latest
+docker push ghcr.io/adam-taciak/ptech-backend:latest
+```
+I dokładnie te same polecenia dla frontendu:
+
+```
+docker tag ptech-backend ghcr.io/adam-taciak/ptech-frontend:latest
+docker push ghcr.io/adam-taciak/ptech-frontend:latest
+```
+
+
+Więcej informacji w dokumentacji GitHuba https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry
