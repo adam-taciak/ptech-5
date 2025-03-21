@@ -49,7 +49,8 @@ W głównym katalogu repozytorium stwórz nowy plik o nazwie `Dockerfile` z nast
 
 ```Dockerfile
 FROM node:22 as build
-                                                                                                                                                                                                                        WORKDIR /app
+
+WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
