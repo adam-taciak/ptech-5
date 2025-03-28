@@ -202,3 +202,81 @@ echo "FRONTEND_PREFIX = ${FRONTEND_PREFIX}"
 
 sed -i -e "s~src=\"/assets/~src=\"/${FRONTEND_PREFIX}/assets/~" /usr/share/nginx/html/index.html
 ```
+
+### Docker compose
+
+```yaml
+services:
+  reverse-proxy:
+    image: traefik:v3.3
+    command: --api.insecure=true --providers.docker
+    ports:
+      - "80:80"
+      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  frontend:
+    image: ghcr.io/adam-taciak/ptech-frontend:latest
+    ports:
+      - 3000:80
+    environment:
+      FRONTEND_PREFIX: ui
+      BACKEND_URL: http://localhost:81/api
+    volumes:
+      - ./90-patch-config.sh:/docker-entrypoint.d/90-patch-config.sh
+      - ./91-patch-path.sh:/docker-entrypoint.d/91-patch-path.sh
+    labels:
+      traefik.http.routers.frontend.rule: Host(`localhost`) && PathPrefix(`/ui`)
+      traefik.http.routers.frontend.middlewares: frontend-stripprefix
+      traefik.http.middlewares.frontend-stripprefix.stripprefix.prefixes: /ui
+
+  backend:
+    image: ghcr.io/adam-taciak/ptech-backend:latest
+    ports:
+      - 4000:3000
+    environment:
+      DB_HOST: db
+      DB_USER: user
+      DB_NAME: app
+      DB_PASS: password
+      DB_PORT: 3306
+    depends_on:
+      - db
+    labels:
+      traefik.http.routers.backend.rule: "Host(`localhost`) && PathPrefix(`/api`)"
+      traefik.http.routers.backend.middlewares: backend-stripprefix
+      traefik.http.middlewares.backend-stripprefix.stripprefix.prefixes: /api
+
+  db:
+    image: mysql:latest
+    container_name: db
+    environment:
+      MYSQL_ROOT_PASSWORD: my_secret_password
+      MYSQL_DATABASE: app
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - 6033:3306
+    volumes:
+      - ./database.sql:/docker-entrypoint-initdb.d/database.sql
+      - dbdata:/var/lib/mysql
+    command: ['--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: pma
+    links:
+      - db
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+    restart: always
+    ports:
+      - 8081:80
+
+volumes:
+  dbdata:
+
+```
