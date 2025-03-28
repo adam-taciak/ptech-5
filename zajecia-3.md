@@ -174,3 +174,31 @@ docker push ghcr.io/adam-taciak/ptech-frontend:latest
 
 
 Więcej informacji w dokumentacji GitHuba https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry
+
+### Przygotowanie skryptów inicjalizujących
+
+Nasz frontend wymaga kilku zmian w chwili uruchomienia. Przygotujemy 2 skrypty inicjalizujące które wprowadzą następujące zmiany:
+
+* `90-patch-config.sh` - zmiana adresu backendu w zbudowanej aplikacji
+* `91-patch-path.sh` - zmiana adresu do katalogu assets (jest to wymagane gdy użyjemy Traefik
+
+W osobnym repozytorium przeznaczonym do uruchamiania całej aplikacji (deployment) stwórz pliki:
+
+*90-patch-config.sh*
+```bash
+#!/bin/sh
+echo "Patching configuration"
+echo "BACKEND_URL = ${BACKEND_URL}"
+
+sed -i -e "s~http://localhost:3000~${BACKEND_URL}~" /usr/share/nginx/html/assets/*.js
+```
+
+*91-patch-path.sh*
+```bash
+#!/bin/sh
+
+echo "Patching frontend prefix"
+echo "FRONTEND_PREFIX = ${FRONTEND_PREFIX}"
+
+sed -i -e "s~src=\"/assets/~src=\"/${FRONTEND_PREFIX}/assets/~" /usr/share/nginx/html/index.html
+```
